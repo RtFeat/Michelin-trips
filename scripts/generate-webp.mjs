@@ -59,8 +59,8 @@ async function convertToWebP(imagePath) {
     
     await image
       .webp({ 
-        quality: 85, 
-        effort: 6,
+        quality: 80,  // Было 85, стало 80 (меньше размер)
+        effort: 4,     // Было 6, стало 4 (быстрее компрессия)
       })
       .toFile(webpPath);
     

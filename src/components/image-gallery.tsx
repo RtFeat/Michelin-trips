@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import type { PlaceImage } from "@/data/places";
 import { cn } from "@/lib/utils";
-import { LazyImage } from "@/components/lazy-image";
 
 type ImageGalleryProps = {
   images: PlaceImage[];
@@ -11,35 +10,60 @@ type ImageGalleryProps = {
 
 export function ImageGallery({ images, placeName }: ImageGalleryProps) {
   const [index, setIndex] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set([0]));
+  
   const current = images[index];
   if (!current) return null;
 
   const go = (direction: -1 | 1) => {
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setIndex((value) => (value + direction + images.length) % images.length);
-      setIsTransitioning(false);
-    }, 150);
+    const newIndex = (index + direction + images.length) % images.length;
+    setIndex(newIndex);
   };
+
+  // Предзагружаем соседние изображения
+  useEffect(() => {
+    const toLoad = new Set(loadedImages);
+    // Текущее + следующее + предыдущее
+    toLoad.add(index);
+    toLoad.add((index + 1) % images.length);
+    toLoad.add((index - 1 + images.length) % images.length);
+    setLoadedImages(toLoad);
+  }, [index, images.length]);
 
   return (
     <figure className="space-y-3">
-      <div className="relative overflow-hidden rounded-lg bg-map">
-        <div
-          key={index}
-          className={cn(
-            "transition-opacity duration-300",
-            isTransitioning ? "opacity-0" : "opacity-100",
-          )}
-        >
-          <LazyImage
-            src={current.src}
-            alt={current.alt}
-            className="aspect-4/3 h-auto w-full object-cover outline outline-1 -outline-offset-1 outline-fg/10"
-            priority={index === 0}
-          />
-        </div>
+      <div className="relative aspect-4/3 overflow-hidden rounded-lg bg-map">
+        {/* Рендерим все изображения с абсолютным позиционированием */}
+        {images.map((image, imageIndex) => {
+          const isActive = imageIndex === index;
+          const shouldLoad = loadedImages.has(imageIndex);
+          
+          return (
+            <div
+              key={image.src}
+              className={cn(
+                "absolute inset-0 transition-opacity duration-500 ease-out",
+                isActive ? "opacity-100 z-10" : "opacity-0 z-0",
+              )}
+            >
+              {shouldLoad && (
+                <picture>
+                  <source 
+                    srcSet={image.src.replace(/\.(jpg|jpeg|png)$/i, ".webp")} 
+                    type="image/webp" 
+                  />
+                  <img
+                    src={image.src}
+                    alt={image.alt}
+                    loading={imageIndex === 0 ? "eager" : "lazy"}
+                    decoding="async"
+                    className="h-full w-full object-cover outline outline-1 -outline-offset-1 outline-fg/10"
+                  />
+                </picture>
+              )}
+            </div>
+          );
+        })}
         {images.length > 1 ? (
           <>
             <button
