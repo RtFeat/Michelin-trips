@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "МИШЛЕНОВСКИЕ ПУТЕШЕСТВИЯ",
+      "hasCanvas": false,
+      "bodyTextLen": 214,
+      "bodyTextHash": "e78695e0be9d95e6fece7c2565f14b830261cb4a91ed274c6a516d01b0d0ef24",
+      "bodyTextPrefix": "САНКТ-ПЕТЕРБУРГ · XIX ВЕК Мишленовские путешествия САНКТ-ПЕТЕРБУ",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "МИШЛЕНОВСКИЕ ПУТЕШЕСТВИЯ",
+      "hasCanvas": false,
+      "bodyTextLen": 144,
+      "bodyTextHash": "146cf5ed4c31b9af9da02760a1a948cccaf2f801a7fb0d3ccebaa8f2f0d2e777",
+      "bodyTextPrefix": "САНКТ-ПЕТЕРБУРГ · XIX ВЕК Мишленовские путешествия САНКТ-ПЕТЕРБУ",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-preview.json"
+}
