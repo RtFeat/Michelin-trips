@@ -69,7 +69,7 @@ export function ImageGallery({ images, placeName }: ImageGalleryProps) {
             <button
               type="button"
               onClick={() => go(-1)}
-              className="absolute top-1/2 left-2 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-bg-elevated/80 text-fg transition-opacity duration-150 hover:bg-bg-elevated"
+              className="absolute top-1/2 left-2 z-20 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-bg-elevated/80 text-fg transition-opacity duration-150 hover:bg-bg-elevated"
               aria-label="Предыдущее изображение"
             >
               <ChevronLeft className="size-4" strokeWidth={1.5} />
@@ -77,7 +77,7 @@ export function ImageGallery({ images, placeName }: ImageGalleryProps) {
             <button
               type="button"
               onClick={() => go(1)}
-              className="absolute top-1/2 right-2 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-bg-elevated/80 text-fg transition-opacity duration-150 hover:bg-bg-elevated"
+              className="absolute top-1/2 right-2 z-20 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-bg-elevated/80 text-fg transition-opacity duration-150 hover:bg-bg-elevated"
               aria-label="Следующее изображение"
             >
               <ChevronRight className="size-4" strokeWidth={1.5} />
